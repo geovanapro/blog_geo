@@ -6,8 +6,6 @@ const app = express();
 const session = require('express-session');
 const port = 3000;
 
-
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
@@ -52,6 +50,16 @@ app.get('/', (req, res) => {
     //console.log(req.connection)
 ;});
 
+// CREATE
+app.post('/submit_post', (req, res) => {
+  const { mensagens } = req.body;
+  const sql = 'INSERT INTO Postagens (mensagens) VALUES (?)';
+  db.query(sql, [mensagens], (err, result) => {
+    if (err) throw err;
+    res.redirect('/teste');
+  });
+});
+
 // Página de login
 app.get('/login', (req, res) => {
     res.render('login', { req: req });
@@ -63,6 +71,21 @@ app.get('/home', (req, res) => {
 
 app.get('/incorreta', (req, res) => {
     res.render('incorreta', { req: req });
+});
+app.get('/teste', (req, res) => {
+  res.render('dashboard', { req: req });
+});
+app.get('/sobre', (req, res) => {
+  res.render('sobre', { req: req });
+});
+app.get('/contato', (req, res) => {
+  res.render('contato', { req: req });
+});
+app.get('/postagem', (req, res) => {
+  res.render('postagem', { req: req });
+});
+app.get('/enviado', (req, res) => {
+  res.render('enviado', { req: req });
 });
 
 app.get('/about', (req, res) => {
@@ -137,41 +160,27 @@ app.get('/about', (req, res) => {
     res.render('pages/about', { req: req })
 });
 
-// UPDATE
-app.post('/update/:id', (req, res) => {
+app.get('/delete2/:id', (req, res) => {
   const { id } = req.params;
-  const { Nome, Medico, Especialidade, Data, Hora } = req.body;
-
-  const sql = 'UPDATE consultas SET Nome = ?, Medico = ?, Especialidade = ?, Data = ?, Hora = ? WHERE id = ?';
-  db.query(sql, [Nome, Medico, id, Especialidade, Data, Hora], (err, result) => {
-    if (err) throw err;
-    res.redirect('/medico');
-  });
-});
-
-// DELETE
-app.get('/delete/:id', (req, res) => {
-  const { id } = req.params;
-  const sql = 'DELETE FROM login WHERE id = ?';
-  console.log('Delete usuário')
+  const sql = 'DELETE FROM Postagens WHERE id = ?';
+  console.log('Delete post')
+  
   db.query(sql, [id], (err, result) => {
     if (err) throw err;
-    res.redirect('/');
+    res.redirect('/teste');
   });
 });
 
-// DELETE
-app.get('/deleteConsulta/:id', (req, res) => {
-  const { id } = req.params;
-  const sql = 'DELETE FROM consultas WHERE id = ?';
-  console.log('Delete consulta')
 
-  db.query(sql, [id], (err, result) => {
+
+// READ
+app.get('/teste', (req, res) => {
+  db.query('SELECT * FROM Postagens', (err, result) => {
     if (err) throw err;
-    res.redirect('/consultas');
+    res.render('postagem', { Postagens: result });
   });
 });
-
+      
 
 
 app.listen(port, () => {
