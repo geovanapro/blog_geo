@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Alice's Blog</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-secondary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="javascript:void(0)"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="home">Home</a>
+              </li>
+            </ul>
+            <form class="d-flex">
+              <input class="form-control me-2" type="text" placeholder="Search">
+              <button class="btn btn-outline-dark" type="button">Procurar</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+      <script>
+          $(document).ready(function() {
+              $(".delete-post").on("click", function(e) {
+                  e.preventDefault();
+      
+                  var postId = $(this).data("id");
+                  var postElement = $(this).closest('li');  // Elemento do post a ser removido
+      
+                  // Confirmação antes de excluir o post
+                  var confirmation = confirm("Tem certeza de que deseja excluir este post?");
+                  
+                  if (confirmation) {
+                      // Envia a solicitação AJAX para excluir o post
+                      $.ajax({
+                          type: "GET",
+                          url: "/delete2/" + postId,
+                          success: function(response) {
+                              // Remove dinamicamente o post da lista se a exclusão for bem-sucedida
+                              postElement.remove();
+                              alert("Post excluído com sucesso!");
+                          },
+                          error: function(error) {
+                              alert("Erro ao excluir o post.");
+                              console.error(error);
+                          }
+                      });
+                  }
+              });
+          });
+      </script>
+
+
+      <script>
+        function home() {
+         
+            window.location.href = "home";
+        }
+    
+      </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .footer {
+      padding: 2rem;
+      background-color: #1d032875;
+      color: #fff;
+      text-align: center;
+      width: 100%;
+      bottom: 0;
+    }
+
+    .navbar {
+      margin-bottom: 20px;
+    }
+    </style>
+</head>
+<body>
+<!-- Nav tabs -->
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" data-bs-toggle="tab" href="#post">Post</a>
+
+
+    </li>
+
+  </ul>
+  
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane container active" id="home">
+    <form action="/submit_post" method="post">
+
+        <label for="content">Conteúdo:</label>
+        <textarea id="content" name="mensagens" rows="8" required></textarea>
+
+        <button  class="btn btn-outline-secondary" type="submit">Publicar</button>
+    </form>
+
+
+    </div>
+    <!--  List -->
+  
+  
+    
+  </div> 
+  
+   
+
+
+
+
+  <h2>Posts</h2>
+  <ul>
+    <%Postagens.forEach (a => { %>
+      <li>
+        <strong><%= a.mensagens %> </strong> 
+         
+        <a href="/delete2/<%= a.id %>">Delete</a>
+      </li>
+   <% }); %>
+  </ul> 
+
+
+
+
+</body>
+<div class="container-fluid">
+    <div class="footer mt-5">
+        <p>@Copyright</p>
+    </div>
+  </div>
+</html>
