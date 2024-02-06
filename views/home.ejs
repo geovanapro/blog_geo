@@ -1,55 +1,111 @@
+<!-- views/index.ejs -->
 <!DOCTYPE html>
 <html lang="en">
+    <style>
+        /* public/styles/style.css */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #ffffff, #ffffff);
+    color: #000000;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 100vh;
+}
+#header-icon {
+            width: 230px;
+            height: 100px;
+            position: absolute;
+            left: 20px;
+            top: 10%;
+            transform: translateY(-50%);
+        }
+
+header {
+    background: linear-gradient(to bottom, #602568, #951fc4);
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+main {
+    text-align: center;
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+button {
+    background: linear-gradient(to bottom, #934caf, #934caf);
+    color: white;
+    padding: 20px;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    margin: 10px;
+}
+
+footer {
+    background: linear-gradient(to bottom, #8f29a8, #8f29a88e);
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+}
+.cor{
+    color: rgb(255, 255, 255);
+}
+    </style>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cabeçalho com Menu</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Arial', sans-serif;
-        }
-
-        header {
-            background-color: #333;
-            color: white;
-            padding: 15px;
-            text-align: center;
-        }
-
-        nav {
-            display: flex;
-            justify-content: center;
-            background-color: #555;
-            padding: 10px;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            padding: 10px;
-            margin: 0 10px;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-
-        nav a:hover {
-            color: #FFD700; /* Cor ao passar o mouse */
-        }
-    </style>
+   
+    <title>Blog pessoal</title>
 </head>
 <body>
-
     <header>
-        <h1>Cabeçalho com Menu</h1>
+        <img src="https://github.com/geovanapro/blog_geo/blob/main/geo-removebg-preview.png?raw=true" alt="Icone" id="header-icon">
+        <h1 class="cor">Bem-vindo à Página Inicial</h1>
+        <nav>
+            <ul>
+                <li><a href="home">Home</a></li>
+                <li><a href="sobre">Sobre</a></li>
+                <li><a href="contato">Contato</a></li>
+                <li><a href="login">Login</a></li>
+                <li><a href="login">Login</a></li>
+            </ul>
+        </nav>
     </header>
+    
+    <main>
+        <h1>Seja bem-vindo!</h1>
+        <a href="sobre"><button>Descubra sobre mim</button></a>
+        <a href="postagem"><button>Postagens</button></a>
+    </main>
 
-    <nav>
-        <a href="#contato">Contato</a>
-        <a href="#sobre">Sobre</a>
-    </nav>
-
-    <!-- Adicione o conteúdo das páginas aqui -->
-
+    <footer>
+        <p>&copy; 2024. Todos os direitos reservados.</p>
+    </footer>
 </body>
 </html>
